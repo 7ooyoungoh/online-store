@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
+    <!--StyleSheet CSS-->
+    <link rel="stylesheet" type="text/css" href="../static/styles.css">
+
     <!-- jQuery, Popper.js, and Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
@@ -24,174 +27,64 @@
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@600&display=swap" rel="stylesheet">
 
     <title>Project | My Shopping Mall</title>
-
-    <style>
-        * {
-            font-family: 'EB Garamond', serif;
-        }
-
-        .wrap {
-            width: 500px;
-            margin: auto;
-            display: block;
-        }
-
-        .item-img {
-            width: 500px;
-            height: 300px;
-
-            background-image: url("https://i.ibb.co/1mk0bp9/IMG-1797.jpg");
-            background-size: cover;
-            background-position: center;
-
-            margin: auto
-            display: block;
-        }
-
-        .item-dsc {
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-
-        .price {
-            font-size: 20px;
-        }
-
-        .btn-order {
-            width: 150px;
-            margin: auto;
-            margin-top: 30px;
-            display: block;
-        }
-
-        .rate {
-            color: darkslategray;
-        }
-
-        .table {
-            margin-top: 30px;
-        }
-    </style>
-
-    <script>
-        $(document).ready(function () {
-            get_rate();
-            listing();
-        });
-
-        function get_rate() {
-            $.ajax({
-                type: "GET",
-                url: "http://spartacodingclub.shop/sparta_api/rate",
-                data: {},
-                success: function (response) {
-                    let now_rate = response['rate'];
-                    $('#now-rate').text(now_rate);
-                }
-            })
-        }
-
-        function listing() {
-            $.ajax({
-                type: "GET",
-                url: "/order",
-                data: {},
-                success: function (response) {
-                    if (response["result"] == "success") {
-                        let orders = response['orders'];
-                        for (let i = 0; i < orders.length; i++) {
-                            let name = orders[i]['name']
-                            let count = orders[i]['count']
-                            let address = orders[i]['address']
-                            let phone = orders[i]['phone']
-
-                            let temp_html = `<tr>
-                                                <th scope="row">${name}</th>
-                                                <td>${count}</td>
-                                                <td>${address}</td>
-                                                <td>${phone}</td>
-                                            </tr>`
-                            $('#orders-box').append(temp_html)
-                        }
-                    }
-                }
-            })
-        }
-
-        function order() {
-            let name = $('#order-name').val();
-            let count = $('#order-count').val();
-            let address = $('#order-address').val();
-            let phone = $('#order-phone').val();
-
-            $.ajax({
-                type: "POST",
-                url: "/order",
-                data: {name_give: name, count_give: count, address_give: address, phone_give: phone},
-                success: function (response) { // if successful
-                    alert(response["msg"]);
-                    window.location.reload();
-                }
-            })
-        }
-    </script>
 </head>
 
 <body>
-<div class="wrap">
-    <div class="item-img"></div>
-    <div class="item-dsc">
-        <h1>Brand New Keyboard <span class="price">Price: $330/KB</span></h1>
-        <p>A new era of typing brought onto your desk by the culmination of our engineering, design, and
-            craftsmanship.</p>
-        <p class="rate">Exchange Rate: $1=<span id="now-rate"></span> won</p>
-    </div>
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text">Name</span>
+    <div class="wrap">
+        <div class="item-img"></div>
+        <div class="item-dsc">
+            <h1>Brand New Keyboard <span class="price">Price: $330/KB</span></h1>
+            <p>A new era of typing brought onto your desk by the culmination of our engineering, design, and
+                craftsmanship.</p>
+            <p class="rate">Exchange Rate: $1=<span id="now-rate"></span> won</p>
         </div>
-        <input id="order-name" type="text" class="form-control" aria-label="Default"
-               aria-describedby="inputGroup-sizing-default">
-    </div>
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <label class="input-group-text" for="order-count">#</label>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Name</span>
+            </div>
+            <input id="order-name" type="text" class="form-control" aria-label="Default"
+                   aria-describedby="inputGroup-sizing-default">
         </div>
-        <select id="order-count" class="custom-select">
-            <option selected>-- Select Quantity --</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-        </select>
-    </div>
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text">Address</span>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="order-count">#</label>
+            </div>
+            <select id="order-count" class="custom-select">
+                <option selected>-- Select Quantity --</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
         </div>
-        <input id="order-address" type="text" class="form-control" aria-label="Default"
-               aria-describedby="inputGroup-sizing-default">
-    </div>
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text">Phone</span>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Address</span>
+            </div>
+            <input id="order-address" type="text" class="form-control" aria-label="Default"
+                   aria-describedby="inputGroup-sizing-default">
         </div>
-        <input id="order-phone" type="text" class="form-control" aria-label="Default"
-               aria-describedby="inputGroup-sizing-default">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Phone</span>
+            </div>
+            <input id="order-phone" type="text" class="form-control" aria-label="Default"
+                   aria-describedby="inputGroup-sizing-default">
+        </div>
+        <button type="button" onclick="order()" class="btn btn-primary btn-order">Place Your Order</button>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Address</th>
+                <th scope="col">Phone</th>
+            </tr>
+            </thead>
+            <tbody id="orders-box">
+            </tbody>
+        </table>
     </div>
-    <button type="button" onclick="order()" class="btn btn-primary btn-order">Place Your Order</button>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Address</th>
-            <th scope="col">Phone</th>
-        </tr>
-        </thead>
-        <tbody id="orders-box">
-        </tbody>
-    </table>
-</div>
+    <script type="text/javascript" src="../static/script.js"></script>
 </body>
 
 </html>
