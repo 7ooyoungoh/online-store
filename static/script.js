@@ -3,6 +3,7 @@ $(document).ready(function () {
     listing();
 });
 
+// not working on Heroku
 function get_rate() {
     $.ajax({
         type: "GET",
