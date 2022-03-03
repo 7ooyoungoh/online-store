@@ -53,9 +53,11 @@ function order() {
         type: "POST",
         url: "/order",
         data: {name_give: name, count_give: count, address_give: address, phone_give: phone},
-        success: function (response) { // if successful
-            alert(response["msg"]);
-            window.location.reload();
+        success: function (response) {
+            if (response["result"] == "success") {
+                alert(response["msg"]);
+                window.location.reload();
+            }
         }
     })
 }
