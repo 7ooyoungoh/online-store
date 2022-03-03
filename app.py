@@ -4,10 +4,10 @@ app = Flask(__name__)
 
 from pymongo import MongoClient
 
-connect_string = 'mongodb+srv://jooyoung-oh:D6Gmg3bD3m@pymongo-heroku.4oygg.mongodb.net/pymongohero_orders?retryWrites=true&w=majority'
-client = MongoClient(connect_string)
-# client = MongoClient('localhost', 27017)
-db = client.get_default_database()
+# connect_string = 'mongodb+srv://jooyoung-oh:D6Gmg3bD3m@pymongo-heroku.4oygg.mongodb.net/pymongohero_orders?retryWrites=true&w=majority'
+# client = MongoClient(connect_string)
+client = MongoClient('localhost', 27017)
+db = client.dborders
 
 
 ## HTML
@@ -32,7 +32,7 @@ def save_order():
     }
     db.orders.insert_one(doc)
 
-    return jsonify({'msg': 'Thanks for your order!'})
+    return jsonify({'result': 'success', 'msg': 'Thanks for your order!'})
 
 
 # Order List (Read) API
