@@ -9,7 +9,7 @@ connect_string = 'mongodb+srv://jooyoung-oh:D6Gmg3bD3m@pymongo-heroku.4oygg.mong
 client = MongoClient(connect_string)
 db = client.get_default_database()
 
-# For Localhost:5000
+# For Localhost
 # client = MongoClient('localhost', 27017)
 # db = client.dborders
 
